@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D81ED82F1D3025530093E5D2 /* Meme.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81ED82E1D3025530093E5D2 /* Meme.swift */; };
 		D8BE33451D2253FE0022027B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BE33441D2253FE0022027B /* AppDelegate.swift */; };
-		D8BE33471D2253FE0022027B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BE33461D2253FE0022027B /* ViewController.swift */; };
+		D8BE33471D2253FE0022027B /* MemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BE33461D2253FE0022027B /* MemeViewController.swift */; };
 		D8BE334A1D2253FE0022027B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D8BE33481D2253FE0022027B /* Main.storyboard */; };
 		D8BE334C1D2253FE0022027B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8BE334B1D2253FE0022027B /* Assets.xcassets */; };
 		D8BE334F1D2253FE0022027B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D8BE334D1D2253FE0022027B /* LaunchScreen.storyboard */; };
@@ -34,9 +35,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D81ED82E1D3025530093E5D2 /* Meme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meme.swift; sourceTree = "<group>"; };
 		D8BE33411D2253FE0022027B /* MemeMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MemeMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8BE33441D2253FE0022027B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D8BE33461D2253FE0022027B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D8BE33461D2253FE0022027B /* MemeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemeViewController.swift; sourceTree = "<group>"; };
 		D8BE33491D2253FE0022027B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D8BE334B1D2253FE0022027B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D8BE334E1D2253FE0022027B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -98,7 +100,8 @@
 			isa = PBXGroup;
 			children = (
 				D8BE33441D2253FE0022027B /* AppDelegate.swift */,
-				D8BE33461D2253FE0022027B /* ViewController.swift */,
+				D81ED82E1D3025530093E5D2 /* Meme.swift */,
+				D8BE33461D2253FE0022027B /* MemeViewController.swift */,
 				D8BE33481D2253FE0022027B /* Main.storyboard */,
 				D8BE334B1D2253FE0022027B /* Assets.xcassets */,
 				D8BE334D1D2253FE0022027B /* LaunchScreen.storyboard */,
@@ -256,7 +259,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8BE33471D2253FE0022027B /* ViewController.swift in Sources */,
+				D81ED82F1D3025530093E5D2 /* Meme.swift in Sources */,
+				D8BE33471D2253FE0022027B /* MemeViewController.swift in Sources */,
 				D8BE33451D2253FE0022027B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -484,6 +488,7 @@
 				D8BE336B1D2253FE0022027B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D8BE336C1D2253FE0022027B /* Build configuration list for PBXNativeTarget "MemeMeTests" */ = {
 			isa = XCConfigurationList;
@@ -492,6 +497,7 @@
 				D8BE336E1D2253FE0022027B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D8BE336F1D2253FE0022027B /* Build configuration list for PBXNativeTarget "MemeMeUITests" */ = {
 			isa = XCConfigurationList;
@@ -500,6 +506,7 @@
 				D8BE33711D2253FE0022027B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

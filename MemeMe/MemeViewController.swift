@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
+class MemeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
 
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var cameraButton: UIBarButtonItem!
@@ -22,10 +22,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     let memeTextAttributes = [
         NSStrokeColorAttributeName : UIColor.blackColor(),
-        NSForegroundColorAttributeName : UIColor.blackColor(),
+        NSForegroundColorAttributeName : UIColor.whiteColor(),
         
         NSFontAttributeName : UIFont(name: "HelveticaNeue-CondensedBlack", size: 36)!,
-        NSStrokeWidthAttributeName : -3    ]
+        NSStrokeWidthAttributeName : -5    ]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,8 +43,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         setTextField(topText, text: "TOP")
         setTextField(bottomText, text: "BOTTOM")
         
-        subscribeToKeyboardNotifications(#selector(ViewController.keyboardWillShow(_:)), notification: UIKeyboardWillShowNotification)
-        subscribeToKeyboardNotifications(#selector(ViewController.keyboardWillHide(_:)), notification: UIKeyboardWillHideNotification)
+        subscribeToKeyboardNotifications(#selector(MemeViewController.keyboardWillShow(_:)), notification: UIKeyboardWillShowNotification)
+        subscribeToKeyboardNotifications(#selector(MemeViewController.keyboardWillHide(_:)), notification: UIKeyboardWillHideNotification)
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -154,14 +154,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     // MARK: share image
-    
-    struct Meme {
-        let topString: String
-        let bottomString: String
-        let originalImage: UIImage?
-        let memedImage: UIImage
-        
-    }
     
     func save() -> Meme {
         //Create the meme object
