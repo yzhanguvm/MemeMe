@@ -313,7 +313,7 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zyh-Vl-95K">
+                            <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zyh-Vl-95K">
                                 <rect key="frame" x="20" y="30" width="560" height="570"/>
                             </imageView>
                         </subviews>
