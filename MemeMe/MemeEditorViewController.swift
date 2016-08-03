@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MemeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
+class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
 
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var cameraButton: UIBarButtonItem!
@@ -20,6 +20,11 @@ class MemeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     @IBOutlet weak var topToolBar: UIToolbar!
     @IBOutlet weak var bottomToolBar: UIToolbar!
     
+    @IBOutlet weak var cancelButton: UIBarButtonItem!
+    @IBOutlet weak var shareButton: UIBarButtonItem!
+    
+    var meme: Meme?
+    
     let memeTextAttributes = [
         NSStrokeColorAttributeName : UIColor.blackColor(),
         NSForegroundColorAttributeName : UIColor.whiteColor(),
@@ -30,8 +35,18 @@ class MemeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let appDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
+        if appDelegate.memes.count == 0 {
+            cancelButton.enabled = false
+        }
+        if meme == nil {
+            shareButton.enabled = false
+        }
         topText.delegate = self
         bottomText.delegate = self
+        
+        view.bringSubviewToFront(topToolBar);
+        view.bringSubviewToFront(bottomToolBar);
         
         view.bringSubviewToFront(topText);
         view.bringSubviewToFront(bottomText);
@@ -40,11 +55,17 @@ class MemeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     override func viewWillAppear(animated: Bool) {
         cameraButton.enabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)
         
-        setTextField(topText, text: "TOP")
-        setTextField(bottomText, text: "BOTTOM")
+        if meme != nil {
+            setTextField(topText, text: meme!.topString)
+            setTextField(bottomText, text: meme!.bottomString)
+            imageView.image = meme!.originalImage
+        } else {
+            setTextField(topText, text: "TOP")
+            setTextField(bottomText, text: "BOTTOM")
+        }
         
-        subscribeToKeyboardNotifications(#selector(MemeViewController.keyboardWillShow(_:)), notification: UIKeyboardWillShowNotification)
-        subscribeToKeyboardNotifications(#selector(MemeViewController.keyboardWillHide(_:)), notification: UIKeyboardWillHideNotification)
+        subscribeToKeyboardNotifications(#selector(MemeEditorViewController.keyboardWillShow(_:)), notification: UIKeyboardWillShowNotification)
+        subscribeToKeyboardNotifications(#selector(MemeEditorViewController.keyboardWillHide(_:)), notification: UIKeyboardWillHideNotification)
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -73,6 +94,7 @@ class MemeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             imageView.contentMode = .ScaleAspectFit
             imageView.image = pickedImage
+            shareButton.enabled = true
         }
         
         dismissViewControllerAnimated(true, completion: nil)
@@ -136,29 +158,46 @@ class MemeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     // MARK: memed image
     
-    func generateMemedImage() -> UIImage
-    {
+    func saveOriginalImage() -> UIImage {
+        
+        
+        topText.hidden = true
+        bottomText.hidden = true
+        
+        let image = generateImage()
+        
+        topText.hidden = false
+        bottomText.hidden = false
+        
+        return image
+    }
+    
+    func generateImage() -> UIImage {
+        
         topToolBar.hidden = true
         bottomToolBar.hidden = true
         
         // Render view to an image
         UIGraphicsBeginImageContext(self.view.frame.size)
         view.drawViewHierarchyInRect(self.view.frame, afterScreenUpdates: true)
-        let memedImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()
+        let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
         topToolBar.hidden = false
         bottomToolBar.hidden = false
         
-        return memedImage
+        return image
     }
     
     // MARK: share image
     
     func save() -> Meme {
         //Create the meme object
-        return Meme( topString: topText.text!, bottomString: bottomText.text!, originalImage:
-            imageView.image, memedImage: generateMemedImage())
+        let meme = Meme( topString: topText.text!, bottomString: bottomText.text!, originalImage: saveOriginalImage(), memedImage: generateImage())
+        
+        //Add it to the memes array on the Application Delegate
+        (UIApplication.sharedApplication().delegate as! AppDelegate).memes.append(meme)
+        return meme
     }
     
     @IBAction func shareImage(sender: UIBarButtonItem) {
@@ -167,15 +206,28 @@ class MemeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         let shareItems: Array = [meme.memedImage]
         let activityViewController: UIActivityViewController = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
         activityViewController.excludedActivityTypes = [UIActivityTypePrint, UIActivityTypePostToWeibo, UIActivityTypeCopyToPasteboard, UIActivityTypeAddToReadingList, UIActivityTypePostToVimeo]
+        activityViewController.completionWithItemsHandler = {activity, success, items, error in
+            if (success) {
+                self.performSegueWithIdentifier("showSentMemes", sender: nil)
+            }
+        
+        }
+        
         presentViewController(activityViewController, animated: true, completion: nil)
     }
     
-    // MARK: cancel
+//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//        if (segue.identifier == "showSentMemes") {
+//            segue.destinationViewController as! UITabBarController
+//        }
+//    }
+//    @IBAction func unwindToCancel(segue: UIStoryboardSegue, sender: AnyObject) {
+//        performSegueWithIdentifier("showSentMemes", sender: sender)
+//    }
     
-    @IBAction func cancelEditting(sender: UIBarButtonItem) {
-        topText.text = "TOP"
-        bottomText.text = "BOTTOM"
-        imageView.image = nil
+    @IBAction func cancelEditting(sender: AnyObject) {
+        
+        dismissViewControllerAnimated(true, completion: nil)
     }
     
 }
