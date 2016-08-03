@@ -23,6 +23,18 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     @IBOutlet weak var shareButton: UIBarButtonItem!
     
+    @IBAction func topTextBeginEditting(sender: UITextField) {
+        if sender.text == "TOP" {
+            sender.text = ""
+        }
+    }
+    
+    @IBAction func bottomTextBeginEditting(sender: UITextField) {
+        if sender.text == "BOTTOM" {
+            sender.text = ""
+        }
+    }
+    
     var meme: Meme?
     
     let memeTextAttributes = [
@@ -133,8 +145,8 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     // MARK: show and hide keyboard
     
     func keyboardWillShow(notification: NSNotification) {
-        if bottomText.isFirstResponder() && view.frame.origin.y == 0 {
-            view.frame.origin.y -= getKeyboardHeight(notification)
+        if bottomText.isFirstResponder() {
+            view.frame.origin.y =  getKeyboardHeight(notification) * -1
         }
     }
     
@@ -178,8 +190,8 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         bottomToolBar.hidden = true
         
         // Render view to an image
-        UIGraphicsBeginImageContext(self.view.frame.size)
-        view.drawViewHierarchyInRect(self.view.frame, afterScreenUpdates: true)
+        UIGraphicsBeginImageContext(view.frame.size)
+        view.drawViewHierarchyInRect(view.frame, afterScreenUpdates: true)
         let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
@@ -195,8 +207,6 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         //Create the meme object
         let meme = Meme( topString: topText.text!, bottomString: bottomText.text!, originalImage: saveOriginalImage(), memedImage: generateImage())
         
-        //Add it to the memes array on the Application Delegate
-        (UIApplication.sharedApplication().delegate as! AppDelegate).memes.append(meme)
         return meme
     }
     
@@ -208,6 +218,9 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         activityViewController.excludedActivityTypes = [UIActivityTypePrint, UIActivityTypePostToWeibo, UIActivityTypeCopyToPasteboard, UIActivityTypeAddToReadingList, UIActivityTypePostToVimeo]
         activityViewController.completionWithItemsHandler = {activity, success, items, error in
             if (success) {
+                //Add it to the memes array on the Application Delegate
+                (UIApplication.sharedApplication().delegate as! AppDelegate).memes.append(meme)
+
                 self.performSegueWithIdentifier("showSentMemes", sender: nil)
             }
         

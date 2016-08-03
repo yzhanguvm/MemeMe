@@ -39,7 +39,6 @@ class MemeCollectionViewController: UICollectionViewController {
     }
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        
         if UIDevice.currentDevice().orientation.isLandscape.boolValue {
             flowLayout.minimumInteritemSpacing = space
             flowLayout.minimumLineSpacing = space
