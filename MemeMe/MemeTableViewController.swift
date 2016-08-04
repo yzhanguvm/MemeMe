@@ -10,6 +10,8 @@ import UIKit
 
 class MemeTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
+    @IBOutlet var tableView: UITableView!
+    
     var memes: [Meme]!
     
     override func viewDidLoad() {
@@ -19,6 +21,13 @@ class MemeTableViewController: UIViewController, UITableViewDataSource, UITableV
         
         let applicationDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
         memes = applicationDelegate.memes
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        let applicationDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
+        memes = applicationDelegate.memes
+        tableView.reloadData()
     }
     
     // MARK: Table View Data Source

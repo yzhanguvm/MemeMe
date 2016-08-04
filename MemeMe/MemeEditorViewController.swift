@@ -203,25 +203,24 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     
     // MARK: share image
     
-    func save() -> Meme {
+    func save(memedImage: UIImage) -> Meme {
         //Create the meme object
-        let meme = Meme( topString: topText.text!, bottomString: bottomText.text!, originalImage: saveOriginalImage(), memedImage: generateImage())
+        let meme = Meme( topString: topText.text!, bottomString: bottomText.text!, originalImage: saveOriginalImage(), memedImage: memedImage)
         
+        //Add it to the memes array on the Application Delegate
+        (UIApplication.sharedApplication().delegate as! AppDelegate).memes.append(meme)
         return meme
     }
     
     @IBAction func shareImage(sender: UIBarButtonItem) {
-        
-        let meme: Meme = save()
-        let shareItems: Array = [meme.memedImage]
+        let memedImage: UIImage = generateImage()
+        let shareItems: Array = [memedImage]
         let activityViewController: UIActivityViewController = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
         activityViewController.excludedActivityTypes = [UIActivityTypePrint, UIActivityTypePostToWeibo, UIActivityTypeCopyToPasteboard, UIActivityTypeAddToReadingList, UIActivityTypePostToVimeo]
         activityViewController.completionWithItemsHandler = {activity, success, items, error in
             if (success) {
-                //Add it to the memes array on the Application Delegate
-                (UIApplication.sharedApplication().delegate as! AppDelegate).memes.append(meme)
-
-                self.performSegueWithIdentifier("showSentMemes", sender: nil)
+                self.save(memedImage)
+                self.dismissViewControllerAnimated(true, completion: nil)
             }
         
         }

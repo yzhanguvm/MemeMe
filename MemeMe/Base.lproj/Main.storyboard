@@ -89,6 +89,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="appCollectionView" destination="iWP-0h-zo5" id="O7d-vh-8RE"/>
+                        <outlet property="collectionView" destination="iWP-0h-zo5" id="TGY-9G-prT"/>
                         <outlet property="flowLayout" destination="KLf-9L-DO2" id="x5d-pP-XOR"/>
                     </connections>
                 </collectionViewController>
@@ -227,6 +229,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="UMd-4E-N5F" id="2kH-y7-jUm"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tkg-C7-I6c" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -347,7 +352,6 @@
                         <outlet property="shareButton" destination="iPk-qM-RBz" id="ekS-is-kLQ"/>
                         <outlet property="topText" destination="zVj-HI-qBi" id="HfV-Vu-lzs"/>
                         <outlet property="topToolBar" destination="qR9-Lt-bTw" id="SxD-p8-B9C"/>
-                        <segue destination="gC9-Qq-J4s" kind="show" identifier="showSentMemes" id="RJ5-gd-Sbp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -360,6 +364,6 @@
         <image name="tableImageSet" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="lNO-06-EzW"/>
+        <segue reference="X3B-E8-0Bb"/>
     </inferredMetricsTieBreakers>
 </document>

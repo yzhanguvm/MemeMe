@@ -10,6 +10,7 @@ import UIKit
 
 class MemeCollectionViewController: UICollectionViewController {
     
+    @IBOutlet var appCollectionView: UICollectionView!
     
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     
@@ -36,6 +37,13 @@ class MemeCollectionViewController: UICollectionViewController {
         if (UIDeviceOrientationIsPortrait(UIDevice.currentDevice().orientation)) {
             flowLayout.itemSize = CGSizeMake(portaitDimension, portaitDimension)
         }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        let applicationDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
+        memes = applicationDelegate.memes
+        appCollectionView.reloadData()
     }
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
