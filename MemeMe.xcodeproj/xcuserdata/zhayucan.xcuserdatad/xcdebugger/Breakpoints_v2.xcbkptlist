@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MemeMe/MemeCollectionViewController.swift"
-            timestampString = "491953946.15878"
+            timestampString = "491986918.965641"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "47"
-            endingLineNumber = "47"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
             landmarkName = "viewWillTransitionToSize(_:withTransitionCoordinator:)"
             landmarkType = "5">
          </BreakpointContent>

@@ -88,11 +88,11 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     // MARK: pick images
     
     @IBAction func pickAnImageFromCamera(sender: UIBarButtonItem) {
-        pickAnImage(UIImagePickerControllerSourceType.Camera)
+        pickAnImage(.Camera)
     }
     
     @IBAction func pickAnImageFromAlbum(sender: UIBarButtonItem) {
-        pickAnImage(UIImagePickerControllerSourceType.PhotoLibrary)
+        pickAnImage(.PhotoLibrary)
     }
 
     func pickAnImage(sourceType: UIImagePickerControllerSourceType) {
@@ -228,15 +228,6 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         
         presentViewController(activityViewController, animated: true, completion: nil)
     }
-    
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        if (segue.identifier == "showSentMemes") {
-//            segue.destinationViewController as! UITabBarController
-//        }
-//    }
-//    @IBAction func unwindToCancel(segue: UIStoryboardSegue, sender: AnyObject) {
-//        performSegueWithIdentifier("showSentMemes", sender: sender)
-//    }
     
     @IBAction func cancelEditting(sender: AnyObject) {
         
